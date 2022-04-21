@@ -6,6 +6,7 @@ use std::{env, io};
 
 mod display;
 mod power;
+mod cpu;
 
 /// a REST API that allows get information on MacBook CPU, power and display status
 #[actix_web::main]
@@ -33,7 +34,7 @@ async fn get_power() -> Result<impl Responder> {
 
 #[get("/cpu")]
 async fn get_cpu() -> impl Responder {
-    HttpResponse::Ok().body("GET /cpu")
+    HttpResponse::Ok().body(cpu::get().to_string())
 }
 
 #[get("/display")]
