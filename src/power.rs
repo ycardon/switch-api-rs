@@ -17,14 +17,14 @@ pub fn get() -> PowerMode {
 
     let pmset = str::from_utf8(&output.stdout).unwrap();
 
-    let caps = RE.captures(pmset).unwrap();
+    let caps = RE.captures(pmset).expect("failed to parse pmset output");
 
     PowerMode {
         isOnAC: "AC".eq(&caps["mode"]),
         isOnBattery: "Battery".eq(&caps["mode"]),
         isCharged: "charged".eq(&caps["status"]),
         chargingStatus: String::from(&caps["status"]),
-        chargePercent: u16::from_str(&caps["percent"]).unwrap(),
+        chargePercent: i16::from_str(&caps["percent"]).unwrap_or(-1),
         remainingChargeTime: String::from(&caps["remaining"]),
     }
 }
@@ -36,6 +36,6 @@ pub struct PowerMode {
     isOnBattery: bool,
     isCharged: bool,
     chargingStatus: String,
-    chargePercent: u16,
+    chargePercent: i16,
     remainingChargeTime: String,
 }
