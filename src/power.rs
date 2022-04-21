@@ -1,16 +1,22 @@
 use regex::Regex;
 use serde::Serialize;
+use std::process::Command;
+use std::str;
 
 /// Parses `pmset -g batt` output and returns the current MacBook power mode
 pub fn get() -> PowerMode {
     lazy_static! {
-        static ref RE: Regex = Regex::new(r".*'(?P<mode>.*) Power'\n.*\t(?P<percent>.*)%; (?P<status>.*); (?P<remaining>.*) present/mg").unwrap();
+        static ref RE: Regex = Regex::new(r".*'(?P<mode>.*) Power'\n.*\t(?P<percent>.*)%; (?P<status>.*); (?P<remaining>.*) present").unwrap();
     }
 
-    let text = "Now drawing from 'Battery Power'
--InternalBattery-0 (id=21233763)	80%; discharging; 5:49 remaining present: true";
+    let output = Command::new("pmset")
+                .args(["-g", "batt"])
+                .output()
+                .expect("failed to execute process");
 
-    let caps = RE.captures(text).unwrap();
+    let pmset = str::from_utf8(&output.stdout).unwrap();
+
+    let caps = RE.captures(pmset).unwrap();
 
     PowerMode {
         isOnAC: true,
@@ -21,6 +27,7 @@ pub fn get() -> PowerMode {
         remainingChargeTime: String::from(&caps["remaining"]),
     }
 }
+
 
 #[allow(non_snake_case)]
 #[derive(Serialize)]
