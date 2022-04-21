@@ -1,8 +1,7 @@
-#[macro_use] extern crate lazy_static;
-
+#[macro_use]
+extern crate lazy_static;
 use actix_web::{get, middleware, post, web, App, HttpResponse, HttpServer, Responder, Result};
 use std::{env, io};
-
 mod power;
 
 #[actix_web::main]

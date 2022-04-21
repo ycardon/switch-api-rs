@@ -1,7 +1,7 @@
 use regex::Regex;
 use serde::Serialize;
 
-/// Parses `pmset -g batt` output and returns the current MacBook power mode 
+/// Parses `pmset -g batt` output and returns the current MacBook power mode
 pub fn get() -> PowerMode {
     lazy_static! {
         static ref RE: Regex = Regex::new(r".*'(?P<mode>.*) Power'\n.*\t(?P<percent>.*)%; (?P<status>.*); (?P<remaining>.*) present/mg").unwrap();
