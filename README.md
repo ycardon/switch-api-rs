@@ -52,9 +52,24 @@ sensor:
     unit_of_measurement: '%'
 ```
 
+## installation
+
+```shell
+# build from source
+git clone https://github.com/ycardon/switch-api-rs
+cd switch-api-rs
+cargo install --path .
+
+# start with user session
+<edit to adjust path> local.switch-api-rs.plist
+cp local.switch-api-rs.plist ~/Library/LaunchAgents/
+launchctl load Library/LaunchAgents/local.switch-api-rs.plist
+launchctl start local.switch-api-rs
+```
+
 ## useful commands
 
 - sleep display: `pmset displaysleepnow`
 - wake display: `caffeinate -u -t 1`
-- test state : `pmset -g powerstate | grep DCPDPDeviceProxy | wc -l` result <1 is sleeping
+- test display state : `pmset -g powerstate | grep DCPDPDeviceProxy | wc -l` result <1 is sleeping
 - battery power status : `pmset -g batt` (and some parsing)
