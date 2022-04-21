@@ -22,7 +22,7 @@ async fn main() -> io::Result<()> {
             .service(get_display)
             .service(post_display)
     })
-    .bind("0.0.0.0:3030")?
+    .bind("0.0.0.0:8182")?
     .run()
     .await
 }
