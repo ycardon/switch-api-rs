@@ -8,7 +8,7 @@ mod display;
 mod power;
 mod cpu;
 
-/// a REST API that allows get information on MacBook CPU, power and display status
+/// A REST API that allows get information on MacBook CPU, power and display status
 #[actix_web::main]
 async fn main() -> io::Result<()> {
     env::set_var("RUST_LOG", "actix_web=debug,actix_server=info");

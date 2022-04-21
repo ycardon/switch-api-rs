@@ -1,7 +1,7 @@
 use std::process::Command;
 use std::str::{self, FromStr};
 
-/// turn off MacBook display
+/// Turns off MacBook display
 pub fn off() {
     Command::new("pmset")
         .arg("displaysleepnow")
@@ -9,7 +9,7 @@ pub fn off() {
         .expect("failed to execute process pmset");
 }
 
-/// turn on MacBook display
+/// Turns on MacBook display
 pub fn on() {
     Command::new("caffeinate")
         .args(["-u", "-t", "1"])
@@ -17,6 +17,7 @@ pub fn on() {
         .expect("failed to execute process caffeinate");
 }
 
+/// Reports MacBook display status
 pub fn is_on() -> bool {
     let output = Command::new("sh")
         .args(["-c", "pmset -g powerstate | grep DCPDPDeviceProxy | wc -l"])
