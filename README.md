@@ -1,6 +1,6 @@
 # switch-api-rs
 
-Simple http server that triggers system commands on predefined URLs
+A simple REST API reporting MacBook CPU, power and display status
 - rewrite in Rust of my Node.js project [switch-api](https://github.com/ycardon/switch-api)
 - adapted to work on MacBook ARM64 architecture
 - used in conjunction with [Home Assistant](https://www.home-assistant.io) [RESTful Switch](https://home-assistant.io/components/switch.rest) integration
@@ -39,7 +39,7 @@ sensor:
     unit_of_measurement: '%'
 ```
 
-### get cpu average on last 5mn
+### get cpu average on 1mn
 
 - `GET /cpu`
 

@@ -1,6 +1,6 @@
 use sys_info::loadavg;
 
-/// Returns CPU load average on 5mn
+/// Returns CPU load average on 1mn
 pub fn get() -> f64 {
-    loadavg().unwrap().five
+    loadavg().unwrap().one
 }
