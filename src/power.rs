@@ -1,8 +1,7 @@
 use regex::Regex;
 use serde::Serialize;
 use std::process::Command;
-use std::str;
-use std::str::FromStr;
+use std::str::{self, FromStr};
 
 /// Parses `pmset -g batt` output and returns the current MacBook power mode
 pub fn get() -> PowerMode {
