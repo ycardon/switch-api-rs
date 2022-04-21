@@ -1,8 +1,9 @@
-use actix_web::{get, post, web, middleware, App, HttpServer, HttpResponse, Responder, Result};
-use serde::Serialize;
+#[macro_use] extern crate lazy_static;
+
+use actix_web::{get, middleware, post, web, App, HttpResponse, HttpServer, Responder, Result};
 use std::{env, io};
 
-// --- HTTP SERVER ---
+mod power;
 
 #[actix_web::main]
 async fn main() -> io::Result<()> {
@@ -12,8 +13,8 @@ async fn main() -> io::Result<()> {
     HttpServer::new(|| {
         App::new()
             .wrap(middleware::Logger::default())
-            .service(get_cpu)
             .service(get_power)
+            .service(get_cpu)
             .service(get_display)
             .service(post_display)
     })
@@ -22,42 +23,15 @@ async fn main() -> io::Result<()> {
     .await
 }
 
-// --- CPU ---
-
-#[derive(Serialize)]
-#[allow(non_snake_case)]
-struct CpuResponse {
-    isOnAC: bool,
-    isOnBattery: bool,
-    isCharged: bool,
-    chargingStatus: String,
-    chargePercent: u16,
-    remainingChargeTime: String,
-    message: String,
+#[get("/power")]
+async fn get_power() -> Result<impl Responder> {
+    Ok(web::Json(power::get()))
 }
 
 #[get("/cpu")]
-async fn get_cpu() -> Result<impl Responder> {
-    let cpu = CpuResponse {
-        isOnAC: true,
-        isOnBattery: false,
-        isCharged: false,
-        chargingStatus: String::from("test"),
-        chargePercent: 50,
-        remainingChargeTime: String::from("test"),
-        message: String::from("test"),
-    };
-    Ok(web::Json(cpu))
+async fn get_cpu() -> impl Responder {
+    HttpResponse::Ok().body("GET /cpu")
 }
-
-// --- POWER ---
-
-#[get("/power")]
-async fn get_power() -> impl Responder {
-    HttpResponse::Ok().body("GET /power")
-}
-
-// --- DISPLAY ---
 
 #[get("/display")]
 async fn get_display() -> impl Responder {

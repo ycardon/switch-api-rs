@@ -6,6 +6,8 @@ edition = "2021"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-actix-web = "4"                                    # Actix Web is a powerful, pragmatic, and extremely fast web framework for Rust
-env_logger = "0.9"                                 # A logging implementation for `log` which is configured via an environment variable.
+actix-web = "4"                                    # Actix Web is a powerful, pragmatic, and extremely fast web framework
 serde = { version = "1", features = ["derive"] }   # A generic serialization/deserialization framework
+regex = "1.5"                                      # An implementation of regular expressions
+env_logger = "0.9"                                 # A logging implementation for `log` which is configured via an environment variable.
+lazy_static = "1"                                  # A macro for declaring lazily evaluated statics
