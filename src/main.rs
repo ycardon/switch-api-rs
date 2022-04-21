@@ -1,9 +1,13 @@
 #[macro_use]
 extern crate lazy_static;
+
 use actix_web::{get, middleware, post, web, App, HttpResponse, HttpServer, Responder, Result};
 use std::{env, io};
+
+mod display;
 mod power;
 
+/// a REST API that allows get information on MacBook CPU, power and display status
 #[actix_web::main]
 async fn main() -> io::Result<()> {
     env::set_var("RUST_LOG", "actix_web=debug,actix_server=info");
@@ -34,10 +38,15 @@ async fn get_cpu() -> impl Responder {
 
 #[get("/display")]
 async fn get_display() -> impl Responder {
-    HttpResponse::Ok().body("GET /display")
+    HttpResponse::Ok().body(if display::is_on() { "ON" } else { "OFF" })
 }
 
 #[post("/display")]
-async fn post_display() -> impl Responder {
-    HttpResponse::Ok().body("POST /display")
+async fn post_display(req_body: String) -> impl Responder {
+    if "ON".eq(&req_body) {
+        display::on()
+    } else {
+        display::off()
+    }
+    HttpResponse::Ok()
 }
