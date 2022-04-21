@@ -14,9 +14,9 @@ pub fn get() -> PowerMode {
         .output()
         .expect("failed to execute process pmset");
 
-    let pmset = str::from_utf8(&output.stdout).unwrap();
+    let stdout = str::from_utf8(&output.stdout).unwrap();
 
-    let caps = RE.captures(pmset).expect("failed to parse pmset output");
+    let caps = RE.captures(stdout).expect("failed to parse pmset output");
 
     PowerMode {
         isOnAC: "AC".eq(&caps["mode"]),

@@ -4,9 +4,9 @@ extern crate lazy_static;
 use actix_web::{get, middleware, post, web, App, HttpResponse, HttpServer, Responder, Result};
 use std::{env, io};
 
+mod cpu;
 mod display;
 mod power;
-mod cpu;
 
 /// A REST API reporting MacBook CPU, power and display status
 #[actix_web::main]

@@ -24,5 +24,7 @@ pub fn is_on() -> bool {
         .output()
         .expect("failed to execute process pmset");
 
-    i16::from_str(str::trim(str::from_utf8(&output.stdout).unwrap())).unwrap() > 0
+    let stdout = str::from_utf8(&output.stdout).unwrap();
+
+    i16::from_str(str::trim(stdout)).unwrap() > 0
 }

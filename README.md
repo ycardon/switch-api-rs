@@ -17,6 +17,7 @@ switch:
   - platform: rest
     name: Macbook Display
     resource: 'http://mymac:8182/display'
+    scan_interval: 30
 ```
 
 ### get battery power status (on macOS Mojave)
@@ -37,6 +38,7 @@ sensor:
       - remainingChargeTime
     value_template: '{{ value_json.chargePercent }}'
     unit_of_measurement: '%'
+    scan_interval: 120
 ```
 
 ### get cpu average on 1mn
@@ -50,6 +52,7 @@ sensor:
     resource: 'http://mymac:8182/cpu'
     value_template: '{{ value | round(1) }}'
     unit_of_measurement: '%'
+    scan_interval: 60
 ```
 
 ## installation
@@ -73,3 +76,5 @@ launchctl start local.switch-api-rs
 - wake display: `caffeinate -u -t 1`
 - test display state : `pmset -g powerstate | grep DCPDPDeviceProxy | wc -l` result <1 is sleeping
 - battery power status : `pmset -g batt` (and some parsing)
+
+TODO scan_interval: 10
