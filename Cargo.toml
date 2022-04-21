@@ -2,8 +2,10 @@
 name = "switch-api-rs"
 version = "0.1.0"
 edition = "2021"
-
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+description = "REST server for switching macOS stuff via home-assistant.io"
+repository = "https://github.com/ycardon/switch-api-rs"
+author = "Yann Cardon"
+license = "MIT"
 
 [dependencies]
 actix-web = "4"                                    # Actix Web is a powerful, pragmatic, and extremely fast web framework
